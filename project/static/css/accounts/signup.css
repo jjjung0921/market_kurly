@@ -1,9 +1,75 @@
 /* signup page - CSS */
-.Frame{
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 1050px;
+    /*border: 1px solid black;*/
 }
 
-.Pretendered{
+.Frame{
+    display: flex;
+    padding-top: 50px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    align-self: stretch;
+    width: 100%;
+    /*border: 1px solid red;*/
+}
+
+.shell{
+    display: flex;
+    width: 640px;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#id_box{
+    display: flex;
+    padding: 10px 20px;
+}
+
+.box{
+    display: flex;
+    width: 150px; 
+    align-items: flex-start;
+}
+
+.input_box {
+    height: 46px;
+    width: 438px;
+    padding: 0px 1px 0px 11px;
+    border-radius: 4px;
+    border: 1px solid var(--stroke-stroke-1, #CCC);
+}
+
+input[type="text"]{
+    color: #333333
+}
+
+input[type="password"]{
+    color: #333333
+}
+
+.input_box::placeholder{
+    
+}
+
+
+input[type="button"]{
+    display:flex;
+    width: 240px;
+    padding: 16px 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.Pretendard{
     color: #000;
     text-align: right;
     font-family: Pretendard;
@@ -13,9 +79,24 @@
     line-height: 20px; /* 114.286% */
     letter-spacing: -1px;
 }
-
 .Title{
     font-size: 28px;
     font-weight: 600;
     line-height: 32px;
+}
+.normal{
+    font-weight: 400;;
+}
+.bold{
+    font-weight: 600;
+}
+.gray{
+    color:#999999
+}
+.middle{
+    font-size: 16px;
+    font-weight: 500;
+}
+.small{
+    font-size: 12px;
 }
