@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/accounts/signup.css'%}"
+/>
+
+<div class="container">
+  <div class="Frame ">
+    
+  </div>
+</div>
+
+{% if error %}
+<div style="color: red">{{ error }}</div>
+{% endif %}
+
+<script>
+  // js
+</script>
+{% endblock %}
