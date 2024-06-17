@@ -39,6 +39,24 @@
     align-items: flex-start;
 }
 
+#password_box{
+    align-items: flex-start;
+}
+
+#password_box label{
+    margin-top: 14px;
+}
+
+#check_password_box{
+    display: flex;
+    align-items: center ;
+}
+
+#check-password-feedback{
+    display: flex;
+    margin-left: 190px;
+}
+
 .input_box {
     height: 46px;
     width: 438px;
@@ -55,23 +73,32 @@ input[type="password"]{
     color: #333333
 }
 
-.input_box::placeholder{
-    
-}
-
-
-input[type="button"]{
+.button{
     display:flex;
     width: 240px;
     padding: 16px 0px;
     justify-content: center;
     align-items: center;
+    border-radius: 4px;
 }
 
+/*#submit{
+    display:flex;
+    width: 240px;
+    padding: 16px 0px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}*/
+
+#otherpage{
+    border-radius: 4px;
+    border: 1px solid var(--point-main, #5E0080);
+    color: #5E0080;
+}
 
 .Pretendard{
     color: #000;
-    text-align: right;
     font-family: Pretendard;
     font-size: 14px;
     font-style: normal;
@@ -100,3 +127,12 @@ input[type="button"]{
 .small{
     font-size: 12px;
 }
+.button-active {
+    background-color: #5E0080;
+    color: #FFFFFF;
+  }
+
+  .button-inactive:disabled {
+    background-color: #E2E2E2;
+    color: #999999;
+  }

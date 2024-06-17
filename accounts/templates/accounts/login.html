@@ -1,6 +1,85 @@
-<!-- 임시 로그인 페이지 -->
-{% extends 'base.html' %} {% block content %}
-<div class="container">
-  <h2>로그인</h2>
+{% extends 'base.html' %} {% block content %} {% load static %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/accounts/signup.css'%}"
+/>
+
+<div class="screen">
+  <div class="container">
+    <form action="{% url 'accounts:login' %}" method="post" class="Frame">
+      {% csrf_token %}
+      <div class="Pretendard Title">로그인</div>
+      <div class="Pretendard bold shell" id="id_box">
+        <input
+          type="text"
+          name="username"
+          id="id"
+          class="Pretendard gray input_box"
+          placeholder="아이디를 입력해주세요."
+          onkeyup="validateForm()"
+        />
+        <div id="id-feedback" class="Pretendard gray small"></div>
+      </div>
+      <div class="Pretendard bold shell" id="password_box">
+        <div>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="Pretendard gray input_box"
+            placeholder="비밀번호를 입력해주세요."
+            onkeyup="validateForm()"
+          />
+        </div>
+      </div>
+      <div class="Pretendard shell" style="align-self: flex-end; margin-right: 3.5em; margin-bottom: 1em;">
+        <span>아이디 찾기</span><span style="margin-left: 1em; margin-right: 1em;">|</span><span>비밀번호 찾기</span>
+      </div>
+      <button
+        disabled
+        type="submit"
+        class="Pretendard middle button button-inactive"
+        id="submit"
+      >
+        로그인
+      </button>
+      <button class="Pretendard middle button" id="otherpage">회원가입</button>
+    </form>
+  </div>
 </div>
+
+{% if error %}
+<div style="color: red">{{ error }}</div>
+{% endif %}
+
+<script>
+  function validateForm() {
+    const id = document.querySelector("#id");
+    const password = document.querySelector("#password");
+    const button = document.querySelector("#submit");
+
+    function validateId() {
+      return id.value.trim() !== "";
+    }
+
+    function validatePassword() {
+      return password.value.trim() !== "";
+    }
+
+    // 모든 조건이 충족되면 버튼 활성화
+    if (
+      validateId() &&
+      validatePassword(password.value)
+    ) {
+      button.disabled = false;
+      button.classList.remove("button-inactive");
+      button.classList.add("button-active");
+    } else {
+      button.disabled = true;
+      button.classList.remove("button-active");
+      button.classList.add("button-inactive");
+    }
+  }
+</script>
 {% endblock %}

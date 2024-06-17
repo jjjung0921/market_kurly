@@ -7,41 +7,59 @@
 
 <div class="screen">
   <div class="container">
-    <form action="" method="get" class="Frame">
+    <form action="{% url 'accounts:signup' %}" method="post" class="Frame">
+      {% csrf_token %}
       <div class="Pretendard Title">회원가입</div>
       <hr style="width: 640px; height: 1px; border: none; background: #000" />
       <div class="Pretendard bold shell" id="id_box">
         <label for="id" class="box"> 아이디 </label>
         <input
           type="text"
+          name="username"
           id="id"
           class="Pretendard gray input_box"
           placeholder="아이디를 입력해주세요."
+          onkeyup="validateForm()"
         />
+        <div id="id-feedback" class="Pretendard gray small"></div>
       </div>
       <div class="Pretendard bold shell" id="password_box">
         <label for="password" class="box"> 비밀번호 </label>
-        <input
-          type="password"
-          id="password"
-          class="Pretendard gray input_box"
-          placeholder="비밀번호를 입력해주세요."
-        />
-        <p class="Pretendard gray small">* 비밀번호를 8자 이상으로 작성해주세요.</p>
-        <p class="Pretendard gray small">* 영문 대소문자, 숫자, 특수문자를 하나 이상 포함해주세요.</p>
-        <p class="Pretendard gray small">* 사용가능 특수문자 @!?-_</p>
+        <div>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="Pretendard gray input_box"
+            placeholder="비밀번호를 입력해주세요."
+          />
+          <div id="password-feedback" class="Pretendard gray small">
+            <p>* 비밀번호를 8자 이상으로 작성해주세요.</p>
+            <p>* 영문 대소문자, 숫자, 특수문자를 하나 이상 포함해주세요.</p>
+            <p>* 사용가능 특수문자 @!?-_</p>
+          </div>
+        </div>
       </div>
-      <div class="Pretendard bold shell" id="check_password_box">
-        <label for="check_password" class="box"> 비밀번호 확인 </label>
-        <input
-          type="password"
-          id="check_password"
-          class="Pretendard gray input_box"
-          placeholder="비밀번호를 한 번 더 입력해주세요."
-        />
+      <div>
+        <div class="Pretendard bold shell" id="check_password_box">
+          <label for="check_password" class="box"> 비밀번호 확인 </label>
+          <input
+            type="password"
+            name="password2"
+            id="check_password"
+            class="Pretendard gray input_box"
+            placeholder="비밀번호를 한 번 더 입력해주세요."
+            onkeyup="validateForm()"
+          />
+        </div>
+        <div id="check-password-feedback" class="Pretendard gray small"></div>
       </div>
-      <hr style="width: 640px; height: 1px; border: none; background: #E2E2E2" />
-      <input type="button" class="Pretendard gray middle" value="가입하기">
+      <hr
+        style="width: 640px; height: 1px; border: none; background: #e2e2e2"
+      />
+      <button disabled type="submit" class="Pretendard middle button button-inactive" id="submit">
+        가입하기
+      </button>
     </form>
   </div>
 </div>
@@ -51,6 +69,57 @@
 {% endif %}
 
 <script>
-  // js
+  function validateForm() {
+    const id = document.querySelector("#id");
+    const password = document.querySelector("#password");
+    const check_password = document.querySelector("#check_password");
+    const button = document.querySelector("#submit");
+    const checkPasswordFeedback = document.querySelector("#check-password-feedback");
+
+    function validateId() {
+      return id.value.trim() !== "";
+    }
+
+    function validatePassword(password) {
+      const minLength = 8;
+      const hasUpperCase = /[A-Z]/.test(password);
+      const hasLowerCase = /[a-z]/.test(password);
+      const hasSpecialChar = /[@!?-_]/.test(password);
+
+      return (
+        password.length >= minLength &&
+        hasUpperCase &&
+        hasLowerCase &&
+        hasSpecialChar
+      );
+    }
+
+    function validatePasswordCheck(password, check_password) {
+      return password === check_password;
+    }
+
+    // 비밀번호 확인 검사
+    if (!validatePasswordCheck(password.value, check_password.value)) {
+      checkPasswordFeedback.textContent = "비밀번호가 일치하지 않습니다.";
+      checkPasswordFeedback.style.color = "red";
+    } else {
+      checkPasswordFeedback.textContent = "";
+    }
+
+    // 모든 조건이 충족되면 버튼 활성화
+    if (
+      validateId() &&
+      validatePassword(password.value) &&
+      validatePasswordCheck(password.value, check_password.value)
+    ) {
+      button.disabled = false;
+      button.classList.remove("button-inactive");
+      button.classList.add("button-active");
+    } else {
+      button.disabled = true;
+      button.classList.remove("button-active");
+      button.classList.add("button-inactive");
+    }
+  }
 </script>
 {% endblock %}
